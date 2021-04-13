@@ -1,6 +1,6 @@
 # HTML, CSS 그리고 JavaScript
 
-HTML(Hyper Text Markup Language)은 페이지에 제목, 문단, 표, 이미지, 동영상 등을 정의하고 그 구조와 의미를 부여하는 정적 언어로 웹의 구조를 담당한다.HTML로 화며을 이쁘게 만들려고 시도하면 안된다. 온전히 튼튼한 구조(Semantic)을 만드는 것에만 집중해야 한다.
+HTML(Hyper Text Markup Language)은 페이지에 제목, 문단, 표, 이미지, 동영상 등을 정의하고 그 구조와 의미를 부여하는 정적 언어로 웹의 구조를 담당한다.HTML로 화면을 이쁘게 만들려고 시도하면 안된다. 온전히 튼튼한 구조(Semantic)을 만드는 것에만 집중해야 한다.
 
 CSS(Cascading Style Sheets)는 마크업 언어(HTML, XML 등)가 실제 표시되는 방법(색상, 크기, 폰트, 레이아웃 등)을 지정하여 콘텐츠 구조를 꾸며주는 정적 언어로 웹의 시각적인 표현을 담당한다.
 
