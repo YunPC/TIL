@@ -401,3 +401,219 @@ E - F
 ```
 
 > 생테계(`.ecosystem`)에 적용된 색상이, 하위 요소들에게도 적용된다.
+
+### 상속되는 속성들(properties)
+
+- font
+    + font-size
+    + font-weight
+    + line-height
+    + font-family
+- color
+- text-align
+- text-indent
+- text-decoration
+- letter-spacing
+- opacity
+- etc..
+
+### 강제 상속
+
+```html
+<div class="parent">
+    <div class="child"></div>
+</div>
+```
+
+```css
+.parent{
+    position: absolute;
+}
+.child {
+    position: inherit;
+}
+```
+
+> 상속되지 않는 속성(값)도 `inherit`이라는 값을 사용하여 '부모'에서 '자식'으로 강제 상속 시킬 수 있다. '자식'을 제외한 '후손'에게는 적용되지 않으며, 모든 속성이 강제 상속을 사용할 수 있는 것은 아니다.
+
+## 우선순위
+
+```html
+<body>
+    <!-- 인라인 선언방식 -->
+    <div id="color_yellow" class="color_green" style="color: orange;">Hellow world!</div>
+</body>
+```
+
+```css
+div {color: red !important;}
+
+#color_yellow {color: yellow;}
+
+.color_green {color: green;}
+
+div {color: blue;}
+
+* {color: darkblue;}
+
+body {color: violet;}
+```
+
+### 우선순위 결정
+
+같은 요소가 여러 선언의 대상이 될 경우,
+어떤 선언의 CSS 속성(property)을 우선 적용할지 결정하는 방법
+
+1. 명시도 점수가 높은 선언이 우선(명시도)
+2. 점수가 같은 경우, 가장 마지막에 해석(늦게 작성한)되는 선언이 우선(우선 순서)
+3. 명시도는 '상속' 규칙보다 우선(중요도)
+4. `!important`가 적용된 선언 방식이 다른 모든 방식보다 우선(중요도)
+
+> 우선순위에는 '중요도,명시도,선언 순서'의 개념이 있다.
+
+1. 가장 중요(`!important`)
+모든 선언을 무시하고 가장 우선
+점수 : `inf` pt
+
+```css
+div {
+    color: red !important; 
+}
+```
+
+2. 인라인 선언 방식(Style Attribute)
+
+인라인 선언(HTML `style` 속성을 사용)
+점수: `1000`pt
+
+```html
+<div style="color: orange;">HELLO WORLD</div>
+```
+
+3. 아이디(ID Selector)
+
+아이디 선택자
+점수: `100`pt
+
+```css
+#color_yellow {
+    color: yellow;
+}
+```
+
+4. 클래스(Class Selector)
+
+클래스 선택자
+점수: `10`pt
+
+```css
+.color_green{
+    color: green;
+}
+```
+
+5. 태그(Type Selector)
+
+태그 선택자
+점수: `1`pt
+
+```css
+span {
+    color: blue;
+}
+```
+
+6. 전체(Universal Selector)
+
+전체 선택자
+점수: `0`pt
+
+```css
+* {
+    color: darkblue;
+}
+```
+
+7. 상속(CSS Inheritance)
+
+상속 받은 속성은 항상 우선하지 않음
+점수: 계산하지 않음
+
+```css
+body {
+    color: violet;
+}
+```
+
+계산해 보자!
+
+```css
+/* 21pt */
+.list li.item{color: red;}
+
+/* 21pt */
+.list li:hover {color: red;}
+
+/* 11pt */
+.box::before {content: "Good"; color: red;}
+
+/* 101pt */
+#submit span{color : red;}
+
+/* 22pt */
+header .menu li:nth-child(2) {color:red;}
+
+/* 1pt */
+h1 {color: red;}
+
+/* 10pt */
+:not(.box) {color: red;}
+
+/* 1pt */
+:not(span) {color: red;}
+```
+
+> `hover`처럼 '가상 클래스'는 '클래스' 선택자의 점수(`10pt`)를 가지며, `::before`처럼 '가상 요소'는 '태그' 선택자의 점수(`1pt`)를 가진다. 부정 선택자 `:not()`은 점수를 가지지 않는다.
+
+## 가상 클래스 선택자(Pseudo-Classes Selectors)
+
+### HOVER
+
+`E`에 마우스(포인터)가 올라가 있는 동안에만 `E` 선택
+```
+E:hover
+```
+
+### ACTIVE
+
+`E`를 마우스로 클릭하는 동안에만 `E` 선택
+
+```
+E:active
+```
+
+### FOCUS
+
+`E`가 포커스 된 동안에만 `E` 선택
+```
+E:focus
+```
+
+> 대화형 콘텐츠에서 사용 가능
+
+## 가상 요소 선택자(Pseudo-Elements Selectors)
+
+### BEFORE
+
+`E`요소 **내부의 앞**에, 내용(content)를 삽입
+```
+E::before
+```
+
+### AFTER
+
+`E` 요소 **내부의 뒤**에, 내용(content)을 삽입
+
+```
+E::after
+```
